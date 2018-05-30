@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Lección 8 - Vue 2 - Styde.net</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <!-- Custom styles for this template -->
+        <link href="style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id="app" class="container">
+            <h4>Todas las tareas</h4>
+            <ul>
+                <li v-for="task in tasks">
+                    {{ task.name }}
+                </li>
+            </ul>
+
+            <template v-if="pendingTasks.length">
+                <h4>Tareas pendientes</h4>
+                <ul>
+                    <li v-for="task in pendingTasks">
+                        {{ task.name }}
+                    </li>
+                </ul>
+            </template>
+
+            <h4>Numérico</h4>
+            <ul>
+                <li v-for="i in 10">{{ i }}</li>
+            </ul>
+
+            <h4>Objeto</h4>
+            <ul>
+                <li v-for="(value, key, index) in user">{{ index }} - {{ key }}: {{ value }}</li>
+            </ul>
+
+            <footer class="footer">
+                <p>&copy; 2018 Styne.net</p>
+            </footer>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+        <script>
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    tasks: [
+                        {
+                            name: 'Aprender Vue.js',
+                            pending: false
+                        },
+                        {
+                            name: 'Inscribirse en Styde',
+                            pending: false
+                        },
+                        {
+                            name: 'Seguir a @Stydenet en Twitter',
+                            pending: false
+                        }
+                    ],
+                    user: {
+                        firstName: 'Enrique',
+                        lastName: 'Aguilar',
+                        username: 'Gaurhoth',
+                        website: 'expacioweb.com',
+                        description: 'Vue.js student'
+                    }
+                },
+                computed: {
+                    pendingTasks: function() {
+                        return this.tasks.filter(function(item){
+                            return item.pending;
+                        })
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
