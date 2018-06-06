@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Lección 21 - Vue 2 - Styde.net</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css""/>
+
+        <!-- Custom styles for this template -->
+        <link href="style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id="app" class="container">
+            <h2>Tareas</h2>
+            <ul class="list-group tasks">
+                <li is="app-task" v-for="(task, index) in tasks" :task="task" :index="index" @remove="deleteTask"></li>
+            </ul>
+
+            <p><a @click.prevent="deleteCompleted" href="#">Eliminar tareas completadas</a></p>
+
+            <form @submit.prevent="createTask" class="new-task-form">
+                <input type="text" v-model="new_task" class="form-control">
+                <button class="btn btn-primary">Crear tarea</button>
+            </form>
+
+            <footer class="footer">
+                <p>&copy; 2018 Styde.net</p>
+            </footer>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+        <script type="text/x-template" id="task-template">
+            <li class="list-group-item" :class="{editing: editing, completed: !task.pending}">
+                <a @click.prevent="toogleStatus" href="#">
+                    <app-icon :img="task.pending ? 'square' : 'check-square'"></app-icon>
+                </a>
+                <template v-if="!editing">
+                    <span class="description">{{ task.description }}</span>
+                    <div>
+                        <a @click.prevent="edit" href="#">
+                            <app-icon img="edit"></app-icon>
+                        </a>
+                        <a @click.prevent="remove" href="#">
+                            <app-icon img="trash-alt"></app-icon>
+                        </a>
+                    </div>
+                </template>
+                <template v-else>
+                    <input type="text" v-model="draft"/>
+                    <div>
+                        <a @click.prevent="update" href="#">                                
+                            <app-icon img="check"></app-icon>
+                        </a>
+                        <a @click.prevent="discard" href="#">                                
+                            <app-icon img="times"></app-icon>
+                        </a>
+                    </div>
+                </template>                    
+            </li>
+        </script>
+        <script src="app.js"></script>
+    </body>
+</html>
